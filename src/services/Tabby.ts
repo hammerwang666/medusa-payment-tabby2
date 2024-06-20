@@ -23,7 +23,7 @@ class MyPaymentProcessor extends AbstractPaymentProcessor {
         throw new Error("1");
     }
 
-    static identifier = "Tabby2";
+    static identifier = "Tabby";
 
     async capturePayment(paymentSessionData: Record<string, unknown>): Promise<Record<string, unknown> | PaymentProcessorError> {
         try {
