@@ -100,7 +100,7 @@ class MyPaymentProcessor extends AbstractPaymentProcessor {
                 "amount": price,
                 "currency": merchant.currency,
                 "buyer": {
-                    "phone": `${context.customer?.phone}` || context.billing_address?.phone || null,
+                    "phone": `${context?.customer.phone}` || context?.billing_address?.phone || null,
                     "email": context.email,
                     "name": `${context.customer?.first_name ? context.customer?.first_name : context.billing_address?.first_name} ${context.customer?.last_name ? context.customer?.last_name : context.billing_address?.last_name}` || null,
                 },

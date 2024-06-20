@@ -61,7 +61,7 @@ class MyPaymentProcessor extends medusa_1.AbstractPaymentProcessor {
         };
     }
     async initiatePayment(context) {
-        var _a, _b, _c, _d, _e, _f, _g, _h, _j, _k, _l, _m;
+        var _a, _b, _c, _d, _e, _f, _g, _h, _j, _k, _l;
         const price = context.amount / 100;
         const priceString = price.toString();
         const formattedPrice = priceString.slice(0, 3) + "." + priceString.slice(3);
@@ -75,14 +75,14 @@ class MyPaymentProcessor extends medusa_1.AbstractPaymentProcessor {
                 "amount": price,
                 "currency": merchant.currency,
                 "buyer": {
-                    "phone": `${(_b = context.customer) === null || _b === void 0 ? void 0 : _b.phone}` || ((_c = context.billing_address) === null || _c === void 0 ? void 0 : _c.phone) || null,
+                    "phone": `${context === null || context === void 0 ? void 0 : context.customer.phone}` || ((_b = context === null || context === void 0 ? void 0 : context.billing_address) === null || _b === void 0 ? void 0 : _b.phone) || null,
                     "email": context.email,
-                    "name": `${((_d = context.customer) === null || _d === void 0 ? void 0 : _d.first_name) ? (_e = context.customer) === null || _e === void 0 ? void 0 : _e.first_name : (_f = context.billing_address) === null || _f === void 0 ? void 0 : _f.first_name} ${((_g = context.customer) === null || _g === void 0 ? void 0 : _g.last_name) ? (_h = context.customer) === null || _h === void 0 ? void 0 : _h.last_name : (_j = context.billing_address) === null || _j === void 0 ? void 0 : _j.last_name}` || null,
+                    "name": `${((_c = context.customer) === null || _c === void 0 ? void 0 : _c.first_name) ? (_d = context.customer) === null || _d === void 0 ? void 0 : _d.first_name : (_e = context.billing_address) === null || _e === void 0 ? void 0 : _e.first_name} ${((_f = context.customer) === null || _f === void 0 ? void 0 : _f.last_name) ? (_g = context.customer) === null || _g === void 0 ? void 0 : _g.last_name : (_h = context.billing_address) === null || _h === void 0 ? void 0 : _h.last_name}` || null,
                 },
                 "shipping_address": {
-                    "city": `${(_k = context.billing_address) === null || _k === void 0 ? void 0 : _k.city}` || null,
-                    "address": `${(_l = context.billing_address) === null || _l === void 0 ? void 0 : _l.address_1}` || null,
-                    "zip": ((_m = context.billing_address) === null || _m === void 0 ? void 0 : _m.postal_code) || null
+                    "city": `${(_j = context.billing_address) === null || _j === void 0 ? void 0 : _j.city}` || null,
+                    "address": `${(_k = context.billing_address) === null || _k === void 0 ? void 0 : _k.address_1}` || null,
+                    "zip": ((_l = context.billing_address) === null || _l === void 0 ? void 0 : _l.postal_code) || null
                 },
                 "order": {
                     "reference_id": context.resource_id,
@@ -201,5 +201,5 @@ class MyPaymentProcessor extends medusa_1.AbstractPaymentProcessor {
         this.initiatePayment(context);
     }
 }
-MyPaymentProcessor.identifier = "Tabby2";
+MyPaymentProcessor.identifier = "Tabby";
 exports.default = MyPaymentProcessor;
