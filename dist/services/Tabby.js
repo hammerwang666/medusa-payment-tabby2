@@ -75,7 +75,7 @@ class MyPaymentProcessor extends medusa_1.AbstractPaymentProcessor {
                 "amount": price,
                 "currency": merchant.currency,
                 "buyer": {
-                    "phone": `${context === null || context === void 0 ? void 0 : context.customer.phone}` || ((_b = context === null || context === void 0 ? void 0 : context.billing_address) === null || _b === void 0 ? void 0 : _b.phone) || null,
+                    "phone": (_b = context === null || context === void 0 ? void 0 : context.billing_address) === null || _b === void 0 ? void 0 : _b.phone,
                     "email": context.email,
                     "name": `${((_c = context.customer) === null || _c === void 0 ? void 0 : _c.first_name) ? (_d = context.customer) === null || _d === void 0 ? void 0 : _d.first_name : (_e = context.billing_address) === null || _e === void 0 ? void 0 : _e.first_name} ${((_f = context.customer) === null || _f === void 0 ? void 0 : _f.last_name) ? (_g = context.customer) === null || _g === void 0 ? void 0 : _g.last_name : (_h = context.billing_address) === null || _h === void 0 ? void 0 : _h.last_name}` || null,
                 },
@@ -131,7 +131,7 @@ class MyPaymentProcessor extends medusa_1.AbstractPaymentProcessor {
             responseData: JSON.stringify(responseData)
         });
         console.log('Tabbys response--------------------------------end`');
-        return responseData;
+        return { ...responseData, tabby_url_fake: 'http://a.com',tabby_url: responseData?.configuration?.available_products?.installments?.[0]?.web_url };
     }
     async deletePayment(paymentSessionData) {
         return paymentSessionData;
