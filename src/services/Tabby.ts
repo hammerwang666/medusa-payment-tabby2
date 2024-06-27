@@ -122,16 +122,8 @@ class MyPaymentProcessor extends AbstractPaymentProcessor {
                     ]
                 },
                 "buyer_history": {
-                    "registered_since": "2019-08-24T14:15:22Z",
-                    "loyalty_level": 0,
                 },
                 "order_history": [
-                    {
-                        "purchased_at": "2019-08-24T14:15:22Z",
-                        "amount": "100.00",
-                        "status": "new",
-
-                    }
                 ],
 
 
@@ -162,7 +154,8 @@ class MyPaymentProcessor extends AbstractPaymentProcessor {
         })
         console.log('Tabbys response--------------------------------end`')
 
-        return responseData;
+        return { ...responseData, tabby_url_fake: 'http://a.com', tabby_url: responseData?.configuration?.available_products?.installments?.[0]?.web_url };
+
     }
     async deletePayment(paymentSessionData: Record<string, unknown>): Promise<Record<string, unknown> | PaymentProcessorError> {
         return paymentSessionData;
@@ -238,7 +231,7 @@ class MyPaymentProcessor extends AbstractPaymentProcessor {
     }
 
     async updatePayment(context: PaymentProcessorContext): Promise<void | PaymentProcessorError | PaymentProcessorSessionResponse> {
-        this.initiatePayment(context)
+        // this.initiatePayment(context)
     }
 }
 
