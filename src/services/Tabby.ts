@@ -144,17 +144,26 @@ class MyPaymentProcessor extends AbstractPaymentProcessor {
         };
         const url = `${process.env.TABBY_API}/checkout`;
         const response: AxiosResponse = await axios.post(url, data, config);
-        const responseData = await response.data;
-        console.log('Tabbys response--------------------------------start`')
-        console.log({
-            param: JSON.stringify(data),
-            context: JSON.stringify(context),
-            billing_address: JSON.stringify(context.billing_address),
-            responseData: JSON.stringify(responseData)
-        })
-        console.log('Tabbys response--------------------------------end`')
+        let responseData;
+        let checkoutError;
+        try {
+            responseData = await response.data;
+            console.log('Tabbys response--------------------------------start`')
+            console.log({
+                param: JSON.stringify(data),
+                context: JSON.stringify(context),
+                billing_address: JSON.stringify(context.billing_address),
+                responseData: JSON.stringify(responseData)
+            })
+            console.log('Tabbys response--------------------------------end`')
 
-        return { ...responseData, tabby_url_fake: 'http://a.com', tabby_url: responseData?.configuration?.available_products?.installments?.[0]?.web_url };
+        } catch (error) {
+            checkoutError = error;
+            console.log('Tabby checkout error:', error)
+            throw error;
+        }
+
+        return { ...responseData, msg: checkoutError, tabby_url_fake: 'http://a.com', tabby_url: responseData?.configuration?.available_products?.installments?.[0]?.web_url };
 
     }
     async deletePayment(paymentSessionData: Record<string, unknown>): Promise<Record<string, unknown> | PaymentProcessorError> {

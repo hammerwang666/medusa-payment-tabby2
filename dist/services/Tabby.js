@@ -61,7 +61,7 @@ class MyPaymentProcessor extends medusa_1.AbstractPaymentProcessor {
         };
     }
     async initiatePayment(context) {
-        var _a, _b, _c, _d, _e, _f, _g, _h, _j, _k, _l;
+        var _a, _b, _c, _d, _e, _f, _g, _h, _j, _k, _l, _m, _o, _p, _q;
         const price = context.amount / 100;
         const priceString = price.toString();
         const formattedPrice = priceString.slice(0, 3) + "." + priceString.slice(3);
@@ -95,17 +95,8 @@ class MyPaymentProcessor extends medusa_1.AbstractPaymentProcessor {
                         }
                     ]
                 },
-                "buyer_history": {
-                    "registered_since": "2019-08-24T14:15:22Z",
-                    "loyalty_level": 0,
-                },
-                "order_history": [
-                    {
-                        "purchased_at": "2019-08-24T14:15:22Z",
-                        "amount": "100.00",
-                        "status": "new",
-                    }
-                ],
+                "buyer_history": {},
+                "order_history": [],
             },
             "lang": "ar",
             "merchant_code": merchant.merchant_code,
@@ -131,7 +122,7 @@ class MyPaymentProcessor extends medusa_1.AbstractPaymentProcessor {
             responseData: JSON.stringify(responseData)
         });
         console.log('Tabbys response--------------------------------end`');
-        return { ...responseData, tabby_url_fake: 'http://a.com',tabby_url: responseData?.configuration?.available_products?.installments?.[0]?.web_url };
+        return { ...responseData, tabby_url_fake: 'http://a.com', tabby_url: (_q = (_p = (_o = (_m = responseData === null || responseData === void 0 ? void 0 : responseData.configuration) === null || _m === void 0 ? void 0 : _m.available_products) === null || _o === void 0 ? void 0 : _o.installments) === null || _p === void 0 ? void 0 : _p[0]) === null || _q === void 0 ? void 0 : _q.web_url };
     }
     async deletePayment(paymentSessionData) {
         return paymentSessionData;
@@ -198,7 +189,7 @@ class MyPaymentProcessor extends medusa_1.AbstractPaymentProcessor {
         }
     }
     async updatePayment(context) {
-        this.initiatePayment(context);
+        // this.initiatePayment(context)
     }
 }
 MyPaymentProcessor.identifier = "Tabby";
