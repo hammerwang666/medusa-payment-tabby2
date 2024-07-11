@@ -26,6 +26,7 @@ class MyPaymentProcessor extends AbstractPaymentProcessor {
     static identifier = "Tabby";
 
     async capturePayment(paymentSessionData: Record<string, unknown>): Promise<Record<string, unknown> | PaymentProcessorError> {
+        console.log('paymentSessionData--------------------------------', paymentSessionData)
         try {
             var id;
             if (paymentSessionData.hasOwnProperty("payment")) {

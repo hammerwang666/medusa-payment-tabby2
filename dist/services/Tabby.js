@@ -113,16 +113,25 @@ class MyPaymentProcessor extends medusa_1.AbstractPaymentProcessor {
         };
         const url = `${process.env.TABBY_API}/checkout`;
         const response = await axios_1.default.post(url, data, config);
-        const responseData = await response.data;
-        console.log('Tabbys response--------------------------------start`');
-        console.log({
-            param: JSON.stringify(data),
-            context: JSON.stringify(context),
-            billing_address: JSON.stringify(context.billing_address),
-            responseData: JSON.stringify(responseData)
-        });
-        console.log('Tabbys response--------------------------------end`');
-        return { ...responseData, tabby_url_fake: 'http://a.com', tabby_url: (_q = (_p = (_o = (_m = responseData === null || responseData === void 0 ? void 0 : responseData.configuration) === null || _m === void 0 ? void 0 : _m.available_products) === null || _o === void 0 ? void 0 : _o.installments) === null || _p === void 0 ? void 0 : _p[0]) === null || _q === void 0 ? void 0 : _q.web_url };
+        let responseData;
+        let checkoutError;
+        try {
+            responseData = await response.data;
+            console.log('Tabbys response--------------------------------start`');
+            console.log({
+                param: JSON.stringify(data),
+                context: JSON.stringify(context),
+                billing_address: JSON.stringify(context.billing_address),
+                responseData: JSON.stringify(responseData)
+            });
+            console.log('Tabbys response--------------------------------end`');
+        }
+        catch (error) {
+            checkoutError = error;
+            console.log('Tabby checkout error:', error);
+            throw error;
+        }
+        return { ...responseData, msg: checkoutError, tabby_url_fake: 'http://a.com', tabby_url: (_q = (_p = (_o = (_m = responseData === null || responseData === void 0 ? void 0 : responseData.configuration) === null || _m === void 0 ? void 0 : _m.available_products) === null || _o === void 0 ? void 0 : _o.installments) === null || _p === void 0 ? void 0 : _p[0]) === null || _q === void 0 ? void 0 : _q.web_url };
     }
     async deletePayment(paymentSessionData) {
         return paymentSessionData;
