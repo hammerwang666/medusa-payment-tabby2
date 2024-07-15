@@ -16,6 +16,7 @@ class MyPaymentProcessor extends medusa_1.AbstractPaymentProcessor {
         throw new Error("1");
     }
     async capturePayment(paymentSessionData) {
+        console.log('paymentSessionData--------------------------------', paymentSessionData);
         try {
             var id;
             if (paymentSessionData.hasOwnProperty("payment")) {

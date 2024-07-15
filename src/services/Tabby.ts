@@ -111,7 +111,7 @@ class MyPaymentProcessor extends AbstractPaymentProcessor {
                     "zip": context.billing_address?.postal_code || null
                 },
                 "order": {
-                    "reference_id": context.resource_id,
+                    "reference_id": `${context.resource_id}_${Date.now()}`,
                     "items": [
                         {
                             "title": null,
